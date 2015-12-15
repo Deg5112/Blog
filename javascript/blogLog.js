@@ -2,6 +2,7 @@ blog.service('blogLog', function($http, $log, $q){
     var self = this;
     self.entry_arr = [];
     self.data_loaded = false;
+
     self.get_results = function(){
         return self.entry_arr;
     }
