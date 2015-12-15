@@ -38,7 +38,7 @@ blog.service('blogLog', function($http, $log, $q){
             'uid': entry.uid,
             'ts': entry.ts,
             'title': entry.title,
-            'summary': entry.summary,
+            'blog': entry.blog,
             'tags': entry.tags,
             'public': entry.public,
             'published': entry.published,
