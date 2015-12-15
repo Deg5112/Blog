@@ -83,6 +83,8 @@ blog.service('blogLog', function($http, $log, $q){
             else{
                 $log.error('Error deleting entry from database. response is: ', response);
             }
+        }).error(function(){
+            $log.error('Error deleting entry from database');
         })
     }
 })
