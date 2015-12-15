@@ -13,6 +13,7 @@ blog.service('blogLog', function($http, $log, $q){
         if(!self.data_loaded) {
             $http({
                 url: 'http://s-apis.learningfuze.com/blog/list.json',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
                 $log.info('load data successful: ', response);
@@ -45,10 +46,44 @@ blog.service('blogLog', function($http, $log, $q){
 
         return $http({
             url: 'http://s-apis.learningfuze.com/blog/create.json',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
-
+            data: data
+        }).success(function(response){
+            if(response['success']){
+                $log.info('success');
+                entry.id = response.data.id;
+                self.entry_arr.push(entry);
+            }else{
+                $log.error('Error adding entry to database. response is: ', response);
+            }
+        }).error(function(){
+            $log.error('Error adding entry to database');
         })
     }
 
+    self.delete_entry = function(entry){
+        $log('delete entry called');
+
+        var data = $.param({
+            id : entry.id
+        });
+
+        return $http({
+            url: 's-apis.learningfuze.com/blog/delete.json',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            method: 'POST',
+            data: data
+        }).success(function(response){
+            if(response['success']){
+                $log.info('entry successfully deleted from db');
+                var index = self.entry_arr.indexOf(entry);
+                self.entry_arr.splice(index, 1);
+            }
+            else{
+                $log.error('Error deleting entry from database. response is: ', response);
+            }
+        })
+    }
 })
 
