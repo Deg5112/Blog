@@ -1,4 +1,8 @@
-blog.controller('logIn', function(){
+blog.controller('loginController', function(){
     var self = this;
-    this.bool = true;
+    self.bool = true;
+    self.changeBool = function(){
+      self.bool = (self.bool) ? !(self.bool) : true;
+    };
+    self.data;
 });
