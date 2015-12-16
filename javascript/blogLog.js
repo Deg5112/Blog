@@ -84,14 +84,15 @@ blog.service('blogLog', function($http, $log, $q){
     }
 
     self.delete_entry = function(entry){
-        $log('delete entry called');
+        $log.info('delete entry called');
 
         var data = $.param({
-            id : entry.id
+            id : entry.id,
+            'public': false
         });
 
         return $http({
-            url: 's-apis.learningfuze.com/blog/delete.json',
+            url: 'http://s-apis.learningfuze.com/blog/delete.json',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
