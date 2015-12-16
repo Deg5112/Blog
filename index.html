@@ -138,9 +138,70 @@
                     <li>
                         <a href="about.html">About</a>
                     </li>
-                    <li>
-                        <a href="post.html">Sample Post</a>
+                    <!-- dropdown login-->
+                    <li class="dropdown" ng-controller="loginController as lC">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">LogIn<span class="caret"></span></a>
+                        <!-- login dropdown menu-->
+                        <ul class="dropdown-menu" ng-show="false">
+                            <li>
+                                <div class="container" >
+                                    <div class="row student-add-form col-md-6 col-md-push-3" ng-controller="formController as fc">
+                                        <button type='button' class="pull-right btn-small btn-info btn-small">Or Register</button><h4>Login</h4>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"> </span>
+                                            <input type="text" class="form-control" placeholder="User Name" ng-model="fc.entry.user">
+                                        </div>
+
+                                        <div class="form-group input-group"><span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" ng-model="fc.entry.title" placeholder="Title">
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"></span>
+                                            <textarea class="form-control" rows="10" placeholder="Body" ng-model="fc.entry.blog"></textarea>
+                                        </div>
+
+                                        <button class="btn btn-success" type="submit" ng-click="fc.call_add_entry()">Add</button>
+                                        <button type="button" class="btn btn-danger">Reset</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                              </div>
+                            </li>
+                        </ul>
+
+                        <!-- register dropdown-->
+                        <ul class="dropdown-menu" ng-show="true">
+                            <li>
+                                <div class="container" >
+                                    <div class="row student-add-form col-md-6 col-md-push-3" ng-controller="formController as fc">
+                                        <button type='button' class="pull-right btn-small btn-info btn-small">back to Login</button><h4>Register</h4>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"> </span>
+                                            <input type="text" class="form-control" placeholder="User Name" ng-model="fc.entry.user">
+                                        </div>
+
+                                        <div class="form-group input-group"><span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" ng-model="fc.entry.title" placeholder="Title">
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"></span>
+                                            <textarea class="form-control" rows="10" placeholder="Body" ng-model="fc.entry.blog"></textarea>
+                                        </div>
+
+                                        <button class="btn btn-success" type="submit" ng-click="fc.call_add_entry()">Add</button>
+                                        <button type="button" class="btn btn-danger">Reset</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+
                     </li>
+
                     <li>
                         <a href="contact.html">Contact</a>
                     </li>
@@ -289,6 +350,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
+
+
+    <script type="text/javascript">
+        $('.dropdown-menu').click(function (e)
+        {
+            e.stopPropagation();
+        });
+    </script>
+
+    <script src="LogInController.js"></script>
 
 </body>
 
