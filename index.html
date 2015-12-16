@@ -113,7 +113,7 @@
     </style>
 </head>
 
-<body ng-app="blog">
+<body ng-app="blog" >
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -138,9 +138,75 @@
                     <li>
                         <a href="about.html">About</a>
                     </li>
-                    <li>
-                        <a href="post.html">Sample Post</a>
+                    <!-- dropdown login-->
+                    <li class="dropdown" ng-controller="loginController as lC">
+
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">LogIn<span class="caret"></span></a>
+                        <!-- login dropdown menu-->
+                        <ul class="dropdown-menu" >
+
+
+                            <!-- login dropdown-->
+
+                            <li ng-show="lC.bool">
+                                <div class="container" >
+                                    <div class="row student-add-form col-md-6 col-md-push-3" ng-controller="formController as fc">
+                                        <button type='button' class="pull-right btn-small btn-info btn-small" ng-click="lC.changeBool()">Or Register</button><h4>Login</h4>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"> </span>
+                                            <input type="text" class="form-control" placeholder="User Name" ng-model="lc.data">
+                                        </div>
+
+                                        <p>{{lc.data}}</p>
+
+                                        <div class="form-group input-group"><span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" placeholder="password">
+                                        </div>
+
+
+                                        <button class="btn btn-success" type="submit" >Add</button>
+                                        <button type="button" class="btn btn-danger">Reset</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- register dropdown-->
+                            <li ng-hide="lC.bool">
+                                <div class="container" >
+                                    <div class="row student-add-form col-md-6 col-md-push-3" ng-controller="formController as fc">
+                                        <button type='button' class="pull-right btn-small btn-info btn-small" ng-click="lC.changeBool()">back to Login</button><h4>Register</h4>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"> </span>
+                                            <input type="text" class="form-control" placeholder="User Name" >
+                                        </div>
+
+                                        <div class="form-group input-group"><span class="input-group-addon"></span>
+                                            <input type="email" class="form-control"  placeholder="email">
+                                        </div>
+
+                                        <div class="form-group input-group"><span class="input-group-addon"></span>
+                                            <input type="text" class="form-control"  placeholder="password">
+                                        </div>
+
+                                        <div class="form-group input-group"><span class="input-group-addon"></span>
+                                            <input type="text" class="form-control"  placeholder="confirm password">
+                                        </div>
+
+
+                                        <button class="btn btn-success" type="submit">Add</button>
+                                        <button type="button" class="btn btn-danger">Reset</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
                     </li>
+
                     <li>
                         <a href="contact.html">Contact</a>
                     </li>
@@ -289,6 +355,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
+
+
+    <script type="text/javascript">
+        $('.dropdown-menu').click(function (e)
+        {
+            e.stopPropagation();
+        });
+    </script>
+
+    <script src="javascript/LogInController.js"></script>
 
 </body>
 
