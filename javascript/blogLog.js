@@ -34,15 +34,10 @@ blog.service('blogLog', function($http, $log, $q){
 
     self.add_entry = function(entry){
         var data = $.param({
-            'id': entry.id,
-            'uid': entry.uid,
-            'ts': entry.ts,
             'title': entry.title,
             'blog': entry.blog,
             'tags': entry.tags,
-            'public': entry.public,
-            'published': entry.published,
-            'edited': entry.edited
+            'user': entry.user
         });
 
         return $http({
