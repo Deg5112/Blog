@@ -41,7 +41,7 @@ blog.service('blogLog', function($http, $log, $q){
 
         if(!self.data_loaded) {
             $http({
-                url: 'http://s-apis.learningfuze.com/blog/list.json',
+                url: 'http://localhost:8888/lfz/Blog/php/listBlogPost.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
