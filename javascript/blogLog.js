@@ -46,7 +46,9 @@ blog.service('blogLog', function($http, $log, $q){
                 method: 'POST'
             }).success(function (response) {
                 $log.info('load data successful: ', response);
-                self.entry_arr.push(response.data);
+                for(var index in response.data){
+                    self.entry_arr.push(response.data[index]);
+                }
                 self.data_loaded = true;
                 d.resolve(self.entry_arr);
             }).error(function () {
