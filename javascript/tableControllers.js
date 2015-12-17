@@ -16,8 +16,8 @@ blog.controller('tableController', function ($location, $scope, $log, blogLog) {
         blogLog.delete_entry(entry);
     }
 
-    tself.call_update_entry = function(){
-        blogLog.update_entry(this.entry);
+    tself.call_update_entry = function(old_entry){
+        blogLog.update_entry(old_entry, this.entry);
     }
 
     tself.call_relay_link_data = function(entry){
