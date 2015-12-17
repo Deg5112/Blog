@@ -44,6 +44,7 @@
     <script src="javascript/sessionService.js"></script>
     <script src="javascript/navController.js"></script>
     <script src="javascript/loginRegisterService.js"></script>
+    <script src="logout.js"></script>
     <style>
         #custom-search-input {
             margin: 0;
@@ -173,8 +174,8 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+            <ul class="nav navbar-nav navbar-right" ng-controller="loginController as lC">
                 <li>
                     <a href="#home">Home</a>
                 </li>
@@ -182,7 +183,8 @@
                     <a href="#contact">Contact</a>
                 </li>
                 <!-- dropdown login-->
-                <li class="dropdown" ng-controller="loginController as lC">
+                <li ng-show="lC.loggedInBool"><a>LogOut</a></li>
+                <li ng-hide="lC.loggedInBool" class="dropdown" >
 
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">LogIn<span class="caret"></span></a>
                     <!-- login dropdown menu-->
