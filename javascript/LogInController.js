@@ -21,8 +21,9 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
             }
             if (response.data.data) {
                 var datamessage = response.data.data;
-                var listItem = $('<li>').text(datamessage);
-                $('#usernameLog').append(listItem);
+                //var listItem = $('#usernameLog').text(datamessage);
+
+                $('#usernameLog').text(datamessage);
                 console.log("data ", response.data.data);
             }
             //console.log(response);
