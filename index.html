@@ -40,6 +40,10 @@
     <script src="javascript/formController.js"></script>
     <script src="javascript/tableControllers.js"></script>
     <script src="javascript/postController.js"></script>
+    <script src="javascript/LogInController.js"></script>
+    <script src="javascript/sessionService.js"></script>
+    <script src="javascript/navController.js"></script>
+    <script src="javascript/loginRegisterService.js"></script>
     <style>
         #custom-search-input {
             margin: 0;
@@ -116,6 +120,33 @@
             padding: 5px;
             font-size: 10px;
         }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            float: left;
+            min-width: 320px;
+            padding: 5% 20%;
+            font-size: 14px;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 4px;
+            -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        }
+
+        button.pull-right.btn-small.btn-info.btn-small {
+            position: relative;
+            bottom: .4em;
+        }
     </style>
 </head>
 
@@ -144,6 +175,68 @@
                 </li>
                 <li>
                     <a href="#contact">Contact</a>
+                </li>
+                <!-- dropdown login-->
+                <li class="dropdown" ng-controller="loginController as lC">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">LogIn<span class="caret"></span></a>
+                    <!-- login dropdown menu-->
+                    <ul class="dropdown-menu" >
+                        <!-- login dropdown-->
+
+                        <li ng-show="lC.bool">
+
+
+                                    <button type='button' class="pull-right btn-small btn-info btn-small" ng-click="lC.changeBool()">Or Register</button><h4>Login</h4>
+
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon"> </span>
+                                        <span id="usernameLog" ng-show="lC.badusername">{{ lC.datamessage }}</span>
+                                        <input  type="text" class="form-control" placeholder="User Name" ng-model="lC.login.userLog">
+                                    </div>
+
+                                    <div class="form-group input-group"><span class="input-group-addon"></span>
+                                        <input type="text" class="form-control" placeholder="password" ng-model="lC.login.password">
+                                    </div>
+                                    <button class="btn btn-success" type="submit" ng-click="lC.loginUser(lC.login.userLog, lC.login.password)" >Add</button>
+                                    <button type="button" class="btn btn-danger">Reset</button>
+                                    <button type="button" class="btn btn-default">Cancel</button>
+
+
+                        </li>
+
+
+                        <!-- register dropdown-->
+                        <li ng-hide="lC.bool">
+
+
+                                    <button type='button' class="pull-right btn-small btn-info btn-small" ng-click="lC.changeBool()">back to Login</button><h4>Register</h4>
+
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon"> </span>
+                                        <input type="text" class="form-control" placeholder="User Name" ng-model="lC.register.userReg">
+                                    </div>
+
+                                    <div class="form-group input-group"><span class="input-group-addon"></span>
+                                        <input type="email" class="form-control"  placeholder="email" ng-model="lC.register.emailReg">
+                                    </div>
+
+                                    <div class="form-group input-group"><span class="input-group-addon"></span>
+                                        <input type="text" class="form-control"  placeholder="password" ng-model="lC.register.passwordReg">
+                                    </div>
+
+                                    <div class="form-group input-group"><span class="input-group-addon"></span>
+                                        <input type="text" class="form-control"  placeholder="confirm password" ng-model="lC.register.comfirmPasswordReg">
+                                    </div>
+
+
+                                    <button class="btn btn-success" type="submit" ng-click="lC.registerUser(lC.register.userReg, lC.register.emailReg, lC.register.passwordReg, lC.register.confirmPasswordReg)">Add</button>
+                                    <button type="button" class="btn btn-danger">Reset</button>
+                                    <button type="button" class="btn btn-default">Cancel</button>
+
+
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -329,6 +422,12 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/clean-blog.min.js"></script>
+
+<script>
+    $('.dropdown-menu').click(function(e) {
+        e.stopPropagation();
+    });
+</script>
 
 </body>
 
