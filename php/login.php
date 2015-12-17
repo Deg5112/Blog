@@ -18,18 +18,26 @@ if(mysqli_num_rows($userResult)>0){
     $passwordResult = mysqli_query($conn, $passwordQuery);
     if(mysqli_num_rows($passwordResult)>0){
         //if we have a match for password based on the username create the token
+        while($row = mysqli_fetch_assoc($passwordResult)){
+            $userId = $row['id'];
+            //at this point we have the user id and the token below
+        }
         $data = getDate();
         $string = $data['weekday'].$data['month'].$data['mday'].$data['hours'].$data['minutes'].$data['seconds'];
         $token = md5($string);
+        $tokenQuery = "INSERT INTO `auth_token`(`user_id`, `auth_token`, `timestamp`) VALUES ($userId, '$token', NOW())";
+        $tokenResult = mysqli_query($conn, $tokenQuery);
+        //if row insertion of token is successful
+        if(mysqli_affected_rows($conn)){
+            $responseArray = [
+                'success'=>true,
+                'token'=> $token  //alkajsdhfsdakjlhd223487392472
+            ];
 
-        $responseArray = [
-            'success'=>true,
-            'token'=> $token  //alkajsdhfsdakjlhd223487392472
-        ];
-
-        print(json_encode($responseArray));
-
-    }else{
+            print(json_encode($responseArray));
+        }
+    }
+    else{
         //if usename matches but not pasword
         $responseArray = [
             'success'=>true,
@@ -38,7 +46,8 @@ if(mysqli_num_rows($userResult)>0){
         print(json_encode($responseArray));
     }
 
-}else{
+}
+else{
     $responseArray = [
       'success'=>true,
         'data'=> 'username or password is not valid'
@@ -46,15 +55,5 @@ if(mysqli_num_rows($userResult)>0){
     print(json_encode($responseArray));
 }
 
-
-
-
-//test
-//$array = [
-//    'success'=>true,
-//    'data'=> 'hello'
-//];
-//
-//print(json_encode($array));
 
 ?>
