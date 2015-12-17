@@ -64,11 +64,13 @@ blog.service('blogLog', function($http, $log, $q){
         });
 
         return $http({
-            url: 'http://s-apis.learningfuze.com/blog/create.json',
+            url: 'http://localhost:8888/lfz/Blog/php/createBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
         }).success(function(response){
+            console.log(response);
+            return;
             if(response['success']){
                 $log.info('success');
                 entry.id = response.data.id;

@@ -7,27 +7,54 @@
 
 //TODO need to do form validation on this
 require('connect.php');
-$username = null;
-$password = null;
-
+$username = $_POST['username'];
+$password = $_POST['password'];
 $usernameQuery = "SELECT username FROM users WHERE username = '$username' ";  //username query to test
-$userResult = mysqli_query($conn, $username);
+$userResult = mysqli_query($conn, $usernameQuery);
+
 if(mysqli_num_rows($userResult)>0){
-    //if true.. then we have a match
+    //if true.. then we have a match.. check password
+    $passwordQuery = "SELECT * FROM users WHERE username = '$username' AND password = '$password' "; //password query to test
+    $passwordResult = mysqli_query($conn, $passwordQuery);
+    if(mysqli_num_rows($passwordResult)>0){
+        //if we have a match for password based on the username create the token
+        $data = getDate();
+        $string = $data['weekday'].$data['month'].$data['mday'].$data['hours'].$data['minutes'].$data['seconds'];
+        $token = md5($string);
+
+        $responseArray = [
+            'success'=>true,
+            'token'=> $token  //alkajsdhfsdakjlhd223487392472
+        ];
+
+        print(json_encode($responseArray));
+
+    }else{
+        //if usename matches but not pasword
+        $responseArray = [
+            'success'=>true,
+            'data'=> 'username or password is not valid'
+        ];
+        print(json_encode($responseArray));
+    }
+
 }else{
     $responseArray = [
       'success'=>true,
         'data'=> 'username or password is not valid'
     ];
+    print(json_encode($responseArray));
 }
 
-$passwordQuery = "SELECT * FROM users WHERE username = '$username' AND password = '$password' "; //password query to test
 
 
 
-$data = getDate();
-$string = $data['weekday'].$data['month'].$data['mday'].$data['hours'].$data['minutes'].$data['seconds'];
-$id = md5($string);
-echo $id;  //id is the authentication token
+//test
+//$array = [
+//    'success'=>true,
+//    'data'=> 'hello'
+//];
+//
+//print(json_encode($array));
 
 ?>
