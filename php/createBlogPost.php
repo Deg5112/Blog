@@ -1,0 +1,69 @@
+<?php
+//we need a blog_id as well, not just an id for the row
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+require('connect.php');
+
+
+$username = $_POST['user'];
+$userId = null;
+
+//TODO need to do form validation and data clensing on this as well
+//we need to grab the user id from the username provided
+$idQuery = "SELECT users.id FROM users WHERE username = '$username'";
+$idResult = mysqli_query($conn, $idQuery);
+if(mysqli_num_rows($idResult)) {
+    //if a response was returned
+    $rowArray = [];
+    while ($row = mysqli_fetch_assoc($idResult)) {
+        //grab the id
+        $userId = $row['id'];
+    }
+
+    $blogTitle = $_POST['title'];
+    $blogPost= $_POST['blog'];
+
+    $subPost = substr($blogPost ,0,7);
+//    $pattern = '/(.+)?[ ]/';
+//    preg_match($pattern, $subPost, $match);
+// $match will be our summary, $string will be the blog post in full
+//    $summary = $match;
+//first we check if the user has sent a correct authentication token.. if yes..
+//grab the user id associated with the authentication token
+//insert user_id, title, blog post, summary,
+
+    $insertBlogPostQuery = "INSERT INTO `blog`(`user_id`, `title`, `blog`, `summary`, `public`, `timestamp`) VALUES ('$userId', '$blogTitle', '$blogPost', '$subPost', true, NOW())";
+    $result = mysqli_query($conn, $insertBlogPostQuery);
+
+    if(mysqli_affected_rows($conn)>0){
+        $responseArray = [
+            'success'=>true,
+            'data'=>'database updated'
+        ];
+
+    }else{
+        $responseArray = [
+            'success'=>true,
+            'data'=>'userID valid, update failed'
+        ];
+    }
+
+    print(json_encode($responseArray));
+
+
+}else{
+    $responseArray = [
+      'success'=>true,
+        'data'=>'userId not found'
+    ];
+
+    print(json_encode($responseArray));
+}
+
+//
+//regex for everything up to the last space but not including that last space
+//     (.+)?[ ]
+
+
+
+?>
