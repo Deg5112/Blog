@@ -6,7 +6,7 @@ blog.config(function($routeProvider){
     $routeProvider
 
         .when('/home', {
-            templateUrl: 'index.html'
+            templateUrl: 'main_page.html'
         })
         .when('/post',{
             templateUrl: 'post_template.html'
