@@ -24,7 +24,7 @@ if(mysqli_affected_rows($resultToken)>0){
     }
 }
 
-if($token == $_SESSION['auth_token']) {
+if($token == $_POST['auth_token']) {
 
     if (mysqli_query($conn, $sql)) {
         print("Record deleted successfully");
