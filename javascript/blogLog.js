@@ -41,7 +41,7 @@ blog.service('blogLog', function($http, $log, $q){
 
         if(!self.data_loaded) {
             $http({
-                url: 'http://s-apis.learningfuze.com/blog/list.json',
+                url: 'http://localhost:8888/lfz/Blog/php/listBlogPost.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
@@ -156,6 +156,16 @@ blog.service('blogLog', function($http, $log, $q){
     self.relay_link_data = function(entry){
         console.log('relay_link_data called in blogLog');
         self.entry_display = entry;
+    }
+
+    self.find_user_specific_data = function(user){
+        var output_arr = [];
+        for(var index in self.entry_arr){
+            if(self.entry_arr[index].uid == user){
+                output_arr.push(self.entry_arr[index]);
+            }
+        }
+        return output_arr;
     }
 })
 
