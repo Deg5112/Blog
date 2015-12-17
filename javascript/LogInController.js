@@ -1,6 +1,7 @@
 blog.controller('loginController', function($http, $log, loginRegisterService){
     var self = this;
     self.bool = true;
+    self.badusername = false;
     self.login = {};
     self.register = {};
     self.changeBool = function(){
@@ -16,14 +17,18 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
             if(response.data.token) {
                 localStorage.setItem("token", response.data.token);
                 console.log("token ", response.data.token);
+                self.badusername = false;
                 return;
 
             }
             if (response.data.data) {
-                var datamessage = response.data.data;
-                var listItem = $('<li>').text(datamessage);
-                $('#usernameLog').append(listItem);
+                self.datamessage = response.data.data;
+                //var listItem = $('<li>').text(datamessage);
+                self.badusername = true;
+                //$('#usernameLog').text(response.data.data);
+
                 console.log("data ", response.data.data);
+
             }
             //console.log(response);
         });
