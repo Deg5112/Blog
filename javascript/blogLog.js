@@ -115,14 +115,17 @@ blog.service('blogLog', function($http, $log, $q){
         })
     }
 
-    self.update_entry = function(entry){
+    self.update_entry = function(old_entry, new_entry){
         $log.info('update entry called');
+        $log.info('old entry passed into update is: ', old_entry);
+        $log.info('old entry passed into update is: ', new_entry);
+
         var data = $.param({
-            id : entry.id,
-            auth_token: entry.auth_token,
-            title : entry.title,
-            blog: entry.blog,
-            tags: entry.tags,
+            id : old_entry.id,
+            auth_token: old_entry.auth_token,
+            title : new_entry.title,
+            blog: new_entry.blog,
+            tags: old_entry.tags,
             'public': true
         });
 
@@ -134,9 +137,11 @@ blog.service('blogLog', function($http, $log, $q){
         }).success(function(response){
             if(response['success']){
                 $log.info('entry successfully updated in db');
-                var index = self.entry_arr.indexOf(data.id);
-                $log.info('entry_arr index is: ', index);
-                self.entry_arr.splice(index, 1, entry);
+                var entry_index = self.entry_arr.indexOf(old_entry);
+                if(entry_index !== -1){
+                    $log.info('entry_arr index is: ', entry_index);
+                    self.entry_arr.splice(entry_index, 1, new_entry);
+                }
             }
             else{
                 $log.error('Error updating entry in database. response is: ', response);
