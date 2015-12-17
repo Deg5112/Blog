@@ -157,5 +157,15 @@ blog.service('blogLog', function($http, $log, $q){
         console.log('relay_link_data called in blogLog');
         self.entry_display = entry;
     }
+
+    self.find_user_specific_data = function(user){
+        var output_arr = [];
+        for(var index in self.entry_arr){
+            if(self.entry_arr[index].uid == user){
+                output_arr.push(self.entry_arr[index]);
+            }
+        }
+        return output_arr;
+    }
 })
 
