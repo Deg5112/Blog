@@ -1,4 +1,4 @@
-blog.controller('tableController', function ($scope, $log, blogLog) {
+blog.controller('tableController', function ($location, $scope, $log, blogLog) {
     var tself = this;
     tself.entry_arr = blogLog.get_results();
 
@@ -18,5 +18,11 @@ blog.controller('tableController', function ($scope, $log, blogLog) {
 
     tself.call_update_entry = function(){
         blogLog.update_entry(this.entry);
+    }
+
+    tself.call_relay_link_data = function(entry){
+        blogLog.relay_link_data(entry);
+        $location.path('/post');
+        console.log('call_relay_link_data called');
     }
 });

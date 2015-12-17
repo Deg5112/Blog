@@ -25,9 +25,14 @@ blog.service('blogLog', function($http, $log, $q){
         }
     ];
     self.data_loaded = false;
+    self.entry_display = {};
 
     self.get_results = function(){
         return self.entry_arr;
+    }
+
+    self.get_clicked_post = function(){
+        return self.entry_display;
     }
 
     self.load_data = function(){
@@ -139,6 +144,11 @@ blog.service('blogLog', function($http, $log, $q){
         }).error(function(){
             $log.error('Error updating entry in database');
         })
+    }
+
+    self.relay_link_data = function(entry){
+        console.log('relay_link_data called in blogLog');
+        self.entry_display = entry;
     }
 })
 

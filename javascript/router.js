@@ -9,7 +9,9 @@ blog.config(function($routeProvider){
             templateUrl: 'main_page.html'
         })
         .when('/post',{
-            templateUrl: 'post_template.html'
+            templateUrl: 'post_template.html',
+            controller: 'postController',
+            controllerAs: 'pc'
         })
         .when('/contact', {
             templateUrl: 'contact.html'
