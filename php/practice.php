@@ -1,14 +1,10 @@
 <?php
 
 
-$pattern = '/(.+)?[ ]/';
-$subPost = substr('lkas;dfjla;dfjsdlkfjads', 0, 7);
-print_r($subPost);
+$data = getDate();
+$string = $data['weekday'].$data['month'].$data['mday'].$data['hours'].$data['minutes'].$data['seconds'];
+$token = md5('chelsea');
 
-preg_match($pattern, $subPost, $match);
-// $match will be our summary, $string will be the blog post in full
-
-$summary = $match;
-print_r($summary);
+print_r($string);
 
 ?>
