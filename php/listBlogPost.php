@@ -1,10 +1,12 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
     require('connect.php');
     //comment out
     //print_r($conn);
     mysqli_query($conn,"SET NAMES 'utf8'");
-    $query = "SELECT blog.user_id, blog.title, blog.blog_post, blog.summary, blog.id, blog.tags, blog.public,
-    blog.published, blog.edited, blog.timestamp, users.id, users.username FROM blog JOIN users ON blog.user_id = users.id";
+    $query = "SELECT blog.title, blog.blog_post, blog.summary, blog.id, blog.tags, blog.public,
+    blog.published, blog.edited, blog.timestamp, users.username FROM blog JOIN users ON blog.user_id = users.id";
     //comment out
     //print_r($query);
     $result = mysqli_query($conn, $query);

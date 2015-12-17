@@ -1,10 +1,8 @@
 <?php
+//header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Methods: GET, POST');
 function isValidPassword($password){
-    //Solution 1
-//        $grade = (int)$grade;
-//        return ($grade >= 0 && $grade <= 100);
-    //Solution 2
-    $regex = '/^100$|^[1-9]?[0-9]$/';
+    $regex = '/^(\w|[!@#$%^&*()]){7,50}/';
     return preg_match($regex,$password);
 }
 function isValidName($name)
@@ -13,7 +11,7 @@ function isValidName($name)
     return preg_match($regex, $name);
 }
 function isValidEmail($email){
-    $regex = '/[ A-Za-z\-0-9]*/';
+    $regex = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
     return preg_match($regex,$email);
 }
 ?>

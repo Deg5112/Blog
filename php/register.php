@@ -1,21 +1,20 @@
 <?php
+//header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Methods: GET, POST');
 require('connect.php');
+require('regex.php');
 
 $username = addslashes(trim($_POST['username']));
 $email = addslashes(trim($_POST['email']));
 $password = addslashes($_POST['password']);
-//$query = "INSERT INTO `SGT_3`( `name`, `course`, `grade`) VALUES ('$name', '$course', '$grade')";
-//mysqli_query($conn, $query);
-//
-//
-//if(mysqli_affected_rows($conn)>0) {
-//    $output['success'] = true;
-//    $newID = mysqli_insert_id($conn);
-//    $output['newID'] = $newID;
-//}
 
-if(isValidGrade($username)==true && isValidCourse($email)==true && isValidName($password)==true){
-    $query = "INSERT INTO `users`( `username`, `email`, `password`) VALUES ('$username', '$email', '$password')";
+//$username = $_POST['username'];
+//$email = $_POST['email'];
+//$password = $_POST['password'];
+//print_r($conn);
+
+if(isValidName($username)==true && isValidEmail($email)==true && isValidPassword($password)==true){
+    $query = "INSERT INTO `users`(`username`, `email`, `password`, `TIMESTAMP` ) VALUES ('$username','$email','$password', NOW())";
     mysqli_query($conn, $query);
 
 
