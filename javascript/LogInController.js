@@ -23,14 +23,9 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
             }
             if (response.data.data) {
                 self.datamessage = response.data.data;
-                //var listItem = $('<li>').text(datamessage);
                 self.badusername = true;
-                //$('#usernameLog').text(response.data.data);
-
                 console.log("data ", response.data.data);
-
             }
-            //console.log(response);
         });
     };
 

@@ -1,33 +1,38 @@
 blog.service('blogLog', function($http, $log, $q){
     var self = this;
     self.entry_arr = [
-        //{
-        //    "id": 897,
-        //    "uid": 755,
-        //    "ts": 1450208405,
-        //    "title": "The title of your blog",
-        //    "summary": "This is the short form of the entry. It could be all new or a truncated version of the full text",
-        //    "tags": ["blog", "cats", "fun"],
-        //    "public": true,
-        //    "published": "2015-12-15 19:40:05",
-        //    "edited": "2015-12-08 19:40:05"
-        //},
-        //{
-        //    "id": 897,
-        //    "uid": 755,
-        //    "ts": 1450208405,
-        //    "title": "Dummy Data",
-        //    "summary": "Cool Summary",
-        //    "tags": ["blog", "cats", "fun"],
-        //    "public": true,
-        //    "published": "2015-12-15 19:40:05",
-        //    "edited": "2015-12-08 19:40:05"
-        //}
+        {
+            "id": 897,
+            "uid": 755,
+            "ts": 1450208405,
+            "title": "The title of your blog",
+            "summary": "This is the short form of the entry. It could be all new or a truncated version of the full text",
+            "tags": ["blog", "cats", "fun"],
+            "public": true,
+            "published": "2015-12-15 19:40:05",
+            "edited": "2015-12-08 19:40:05"
+        },
+        {
+            "id": 897,
+            "uid": 755,
+            "ts": 1450208405,
+            "title": "Dummy Data",
+            "summary": "Cool Summary",
+            "tags": ["blog", "cats", "fun"],
+            "public": true,
+            "published": "2015-12-15 19:40:05",
+            "edited": "2015-12-08 19:40:05"
+        }
     ];
     self.data_loaded = false;
+    self.entry_display = {};
 
     self.get_results = function(){
         return self.entry_arr;
+    }
+
+    self.get_clicked_post = function(){
+        return self.entry_display;
     }
 
     self.load_data = function(){
@@ -86,14 +91,15 @@ blog.service('blogLog', function($http, $log, $q){
     }
 
     self.delete_entry = function(entry){
-        $log('delete entry called');
+        $log.info('delete entry called');
 
         var data = $.param({
-            id : entry.id
+            id : entry.id,
+            'public': false
         });
 
         return $http({
-            url: 's-apis.learningfuze.com/blog/delete.json',
+            url: 'http://s-apis.learningfuze.com/blog/delete.json',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
@@ -109,6 +115,42 @@ blog.service('blogLog', function($http, $log, $q){
         }).error(function(){
             $log.error('Error deleting entry from database');
         })
+    }
+
+    self.update_entry = function(entry){
+        $log.info('update entry called');
+        var data = $.param({
+            id : entry.id,
+            auth_token: entry.auth_token,
+            title : entry.title,
+            blog: entry.blog,
+            tags: entry.tags,
+            'public': true
+        });
+
+        return $http({
+            url: 'http://s-apis.learningfuze.com/blog/update.json',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            method: 'POST',
+            data: data
+        }).success(function(response){
+            if(response['success']){
+                $log.info('entry successfully updated in db');
+                var index = self.entry_arr.indexOf(data.id);
+                $log.info('entry_arr index is: ', index);
+                self.entry_arr.splice(index, 1, entry);
+            }
+            else{
+                $log.error('Error updating entry in database. response is: ', response);
+            }
+        }).error(function(){
+            $log.error('Error updating entry in database');
+        })
+    }
+
+    self.relay_link_data = function(entry){
+        console.log('relay_link_data called in blogLog');
+        self.entry_display = entry;
     }
 })
 
