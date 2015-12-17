@@ -1,4 +1,4 @@
-blog.controller('tableController', function ($log, blogLog) {
+blog.controller('tableController', function ($scope, $log, blogLog) {
     var tself = this;
     tself.entry_arr = blogLog.get_results();
 
@@ -14,5 +14,9 @@ blog.controller('tableController', function ($log, blogLog) {
 
     tself.call_remove_entry = function (entry) {
         blogLog.delete_entry(entry);
+    }
+
+    tself.call_update_entry = function(){
+        blogLog.update_entry(this.entry);
     }
 });
