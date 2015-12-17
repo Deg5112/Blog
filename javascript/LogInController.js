@@ -4,5 +4,4 @@ blog.controller('loginController', function(){
     self.changeBool = function(){
       self.bool = (self.bool) ? !(self.bool) : true;
     };
-    self.data;
 });
