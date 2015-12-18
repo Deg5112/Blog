@@ -11,6 +11,10 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
       self.bool = (self.bool) ? !(self.bool) : true;
     };
 
+    self.logOut = function(){
+        loginRegisterService.logOutFromDb(loginRegisterService.token);
+    };
+
     self.loginUser = function(username, password){
         self.login = {};
         loginRegisterService.loginToDb(username, password).then(function(response){

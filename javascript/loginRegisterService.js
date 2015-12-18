@@ -14,6 +14,19 @@ blog.service('loginRegisterService', function($http, $log){
             $log.error('Error loading data', response);
         });
     };
+
+    me.logOutFromDb = function(token){
+        return $http({
+            data: 'username=' + username + '&password=' + password,
+            url: 'http://localhost:8888/lfz/Blog/php/login.php',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            method: 'POST'
+        }).success(function (response) {
+            // $log.info('load data successful: ', response);
+        }).error(function (response) {
+            $log.error('Error loading data', response);
+        });
+    };
     
     me.registerToDb = function(user, email, pw, confirmPw){
         return $http({
