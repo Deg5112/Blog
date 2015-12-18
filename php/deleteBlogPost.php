@@ -15,16 +15,16 @@ if(mysqli_affected_rows($result)>0){
     }
 
 }
-$queryToken = "SELECT auth_token FROM auth-token WHERE user_id = $queryUser";
-$resultToken = mysqli_query($conn, $queryToken);
-if(mysqli_affected_rows($resultToken)>0){
-    while($row = mysqli_fetch_assoc($resultToken)){
-        $token[] = $row;
-        print_r($token);
-    }
-}
+//$queryToken = "SELECT auth_token FROM auth-token WHERE user_id = $queryUser";
+//$resultToken = mysqli_query($conn, $queryToken);
+//if(mysqli_affected_rows($resultToken)>0){
+//    while($row = mysqli_fetch_assoc($resultToken)){
+//        $token[] = $row;
+//        print_r($token);
+//    }
+//}
 
-if($token == $_POST['auth_token']) {
+//if($token == $_POST['auth_token']) {
 
     if (mysqli_query($conn, $sql)) {
         print("Record deleted successfully");
@@ -33,8 +33,8 @@ if($token == $_POST['auth_token']) {
         print("Error deleting") . mysqli_error($conn);
 
     }
-}else {
-    $errors=["I am sorry, please login again if you want to update your blog"];
-}
+//}else {
+//    $errors=["I am sorry, please login again if you want to update your blog"];
+//}
 
 ?>

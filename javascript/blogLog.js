@@ -52,7 +52,6 @@ blog.service('blogLog', function($http, $log, $q){
                 $log.info('load data successful: ', response);
                 for(var index in response['data']){
                     self.entry_arr.push(response['data'][index]);
-                    $log.error('in the loop');
                 }
                 $log.info('self.entry_arr after data push is: ', self.entry_arr);
                 self.data_loaded = true;
@@ -135,7 +134,6 @@ blog.service('blogLog', function($http, $log, $q){
             auth_token: old_entry.auth_token,
             title : new_entry.title,
             blog: new_entry.blog,
-            //tags: old_entry.tags
             'public': true
         });
 
