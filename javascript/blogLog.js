@@ -101,7 +101,7 @@ blog.service('blogLog', function($http, $log, $q){
         $log.info('delete entry called');
 
         var data = $.param({
-            id : entry.id
+            'id' : entry.id
             //'public': false
         });
 
