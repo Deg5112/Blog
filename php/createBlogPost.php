@@ -42,7 +42,7 @@ if (mysqli_num_rows($idResult)) {
     if (mysqli_affected_rows($conn) > 0) {
         $responseArray = [
             'success' => true,
-            'data' => 'database updated'
+            'data' => $insertBlogPostQuery
         ];
 
     } else {
