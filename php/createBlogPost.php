@@ -5,7 +5,7 @@ header('Access-Control-Allow-Methods: GET, POST');
 require('connect.php');
 
 
-$username = $_POST['user'];
+$username = $_POST['username'];
 $userId = null;
 
 //TODO need to do form validation and data clensing on this as well

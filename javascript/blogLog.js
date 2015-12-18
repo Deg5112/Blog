@@ -32,7 +32,11 @@ blog.service('blogLog', function($http, $log, $q){
     }
 
     self.get_clicked_post = function(){
-        return self.entry_display;
+        if(self.entry_display == {}){
+            return false;
+        }else{
+            return self.entry_display;
+        }
     }
 
     self.load_data = function(){
@@ -46,8 +50,9 @@ blog.service('blogLog', function($http, $log, $q){
                 method: 'POST'
             }).success(function (response) {
                 $log.info('load data successful: ', response);
-                for(var index in response.data){
-                    self.entry_arr.push(response.data[index]);
+                for(var index in response['data']){
+                    self.entry_arr.push(response['data'][index]);
+                    $log.error('in the loop');
                 }
                 $log.info('self.entry_arr after data push is: ', self.entry_arr);
                 self.data_loaded = true;
@@ -67,8 +72,8 @@ blog.service('blogLog', function($http, $log, $q){
         var data = $.param({
             'title': entry.title,
             'blog': entry.blog,
-            'tags': entry.tags,
-            'user': entry.user
+            //'tags': entry.tags,
+            'username': entry.username
         });
 
         return $http({
@@ -97,12 +102,12 @@ blog.service('blogLog', function($http, $log, $q){
         $log.info('delete entry called');
 
         var data = $.param({
-            id : entry.id,
-            'public': false
+            id : entry.id
+            //'public': false
         });
 
         return $http({
-            url: 'http://s-apis.learningfuze.com/blog/delete.json',
+            url: 'http://localhost:8888/lfz/Blog/php/deleteBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
@@ -130,12 +135,12 @@ blog.service('blogLog', function($http, $log, $q){
             auth_token: old_entry.auth_token,
             title : new_entry.title,
             blog: new_entry.blog,
-            tags: old_entry.tags,
+            //tags: old_entry.tags
             'public': true
         });
 
         return $http({
-            url: 'http://s-apis.learningfuze.com/blog/update.json',
+            url: 'http://localhost:8888/lfz/Blog/php/updateBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
