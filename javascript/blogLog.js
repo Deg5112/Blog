@@ -82,9 +82,9 @@ blog.service('blogLog', function($http, $log, $q){
             data: data
         }).success(function(response){
             console.log(response);
-            return;
             if(response['success']){
                 $log.info('success');
+                $log.error('response.data is: ', response.data);
                 entry.id = response.data.id;
                 console.log('entry in success is: ', entry);
                 console.log('entry_arr is: ', self.entry_arr);
