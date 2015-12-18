@@ -86,6 +86,8 @@ blog.service('blogLog', function($http, $log, $q){
                 $log.info('success');
                 $log.error('response.data is: ', response.data);
                 entry.id = response.data.id;
+                entry.summary = response.data.summary;
+                entry.timeStamp = response.data.timeStamp;
                 console.log('entry in success is: ', entry);
                 console.log('entry_arr is: ', self.entry_arr);
                 self.entry_arr.push(entry);
