@@ -41,12 +41,27 @@ if (mysqli_num_rows($idResult)) {
 
     if (mysqli_affected_rows($conn) > 0) {
         $responseArray['success'] = true;
-        $newId=mysqli_insert_id($conn);
-        $responseArray['data']['id'] =$newId;
-        
-//        $responseArray['data']['summary']=$subPost;
-////        print($subPost);
-//        $responseArray['data']['blog']=$blogPost;
+        $newId=mysqli_insert_id($conn);  //last row inserted in to blog table
+        //make query for time stamp
+        $timeStampQuery = "SELECT timestamp FROM blog WHERE id = '$newId'";
+        $timeStampResult = mysqli_query($conn, $timeStampQuery);
+        if(mysqli_num_rows($timeStampResult)>0){
+            while($row = mysqli_fetch_assoc($timeStampResult)){
+                $timeStamp = $row;
+            }
+        }
+
+
+        $responseArray = [
+            'success'=> true,
+            'data'=>[
+                'id'=>$newId,
+                'summary'=>$subPost,
+                'timeStamp' => $timeStamp['timestamp']
+            ],
+        ];
+
+
     } else {
         $responseArray = [
             'success' => false,
