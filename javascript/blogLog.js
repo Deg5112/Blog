@@ -32,7 +32,7 @@ blog.service('blogLog', function($http, $log, $q){
     }
 
     self.get_clicked_post = function(){
-        if(self.entry_display == {}){
+        if(angular.equals(self.entry_display, {})){
             return false;
         }else{
             return self.entry_display;
