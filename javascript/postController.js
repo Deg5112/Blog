@@ -6,6 +6,8 @@ blog.controller('postController', function ($location, $log, blogLog) {
     pself.data_loaded = false;
     pself.entry_display = blogLog.get_clicked_post();
 
+
+    console.log('pself.entry_display is: ', pself.entry_display);
     if(pself.entry_display == false){
         $location.path('/home');
     }
