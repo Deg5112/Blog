@@ -148,6 +148,7 @@ blog.service('blogLog', function($http, $log, $q){
             method: 'POST',
             data: data
         }).success(function(response){
+            console.log(response);
             if(response['success']){
                 $log.info('entry successfully updated in db');
                 var entry_index = self.entry_arr.indexOf(old_entry);
