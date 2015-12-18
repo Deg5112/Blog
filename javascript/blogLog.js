@@ -84,10 +84,11 @@ blog.service('blogLog', function($http, $log, $q){
             console.log(response);
             if(response['success']){
                 $log.info('success');
-                $log.error('response.data is: ', response.data);
+                //$log.error('response.data is: ', response.data);
                 entry.id = response.data.id;
-                console.log('entry in success is: ', entry);
-                console.log('entry_arr is: ', self.entry_arr);
+                console.log(entry.id);
+                //console.log('entry in success is: ', entry);
+                //console.log('entry_arr is: ', self.entry_arr);
                 self.entry_arr.push(entry);
             }else{
                 $log.error('Error adding entry to database. response is: ', response);

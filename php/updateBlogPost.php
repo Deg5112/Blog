@@ -40,12 +40,12 @@ mysqli_query($conn, $query);
 if (mysqli_affected_rows($conn) > 0) {
 //    print_r($query);
     $output['success'] = true;
-    $output['id'] = $id;
-    $output['msg'] = "Blog $id updated successfully";
+//    $output['id'] = $id;
+
     $output['title'] = $newTitle;
     $output['blog'] = $newBlog;
     $output['summary'] = $newSummary;
-        
+
 } //}
 else {
     $errors = ["I am sorry, please login again if you want to update your blog"];

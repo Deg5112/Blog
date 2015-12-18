@@ -40,11 +40,13 @@ if (mysqli_num_rows($idResult)) {
     $result = mysqli_query($conn, $insertBlogPostQuery);
 
     if (mysqli_affected_rows($conn) > 0) {
-        $responseArray = [
-            'success' => true,
-            'data' => $insertBlogPostQuery
-        ];
-
+        $responseArray['success'] = true;
+        $newId=mysqli_insert_id($conn);
+        $responseArray['data']['id'] =$newId;
+        
+//        $responseArray['data']['summary']=$subPost;
+////        print($subPost);
+//        $responseArray['data']['blog']=$blogPost;
     } else {
         $responseArray = [
             'success' => false,
