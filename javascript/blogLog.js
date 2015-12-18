@@ -147,6 +147,8 @@ blog.service('blogLog', function($http, $log, $q){
         }).success(function(response){
             if(response['success']){
                 $log.info('entry successfully updated in db');
+                new_entry.timeStamp = response.data.timeStamp;
+                new_entry.summary = response.data.summary;
                 var entry_index = self.entry_arr.indexOf(old_entry);
                 if(entry_index !== -1){
                     $log.info('entry_arr index is: ', entry_index);
