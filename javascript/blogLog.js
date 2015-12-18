@@ -86,9 +86,12 @@ blog.service('blogLog', function($http, $log, $q){
                 $log.info('success');
                 //$log.error('response.data is: ', response.data);
                 entry.id = response.data.id;
-                console.log(entry.id);
-                //console.log('entry in success is: ', entry);
-                //console.log('entry_arr is: ', self.entry_arr);
+
+                entry.summary = response.data.summary;
+                entry.timeStamp = response.data.timeStamp;
+                console.log('entry in success is: ', entry);
+                console.log('entry_arr is: ', self.entry_arr);
+
                 self.entry_arr.push(entry);
             }else{
                 $log.error('Error adding entry to database. response is: ', response);
@@ -151,6 +154,8 @@ blog.service('blogLog', function($http, $log, $q){
             console.log(response);
             if(response['success']){
                 $log.info('entry successfully updated in db');
+                new_entry.timeStamp = response.data.timeStamp;
+                new_entry.summary = response.data.summary;
                 var entry_index = self.entry_arr.indexOf(old_entry);
                 if(entry_index !== -1){
                     $log.info('entry_arr index is: ', entry_index);
