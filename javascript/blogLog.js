@@ -109,15 +109,19 @@ blog.service('blogLog', function($http, $log, $q){
             url: 'http://localhost:8888/lfz/Blog/php/deleteBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
-            data: data
-        }).success(function(response){
-            if(response['success']){
-                $log.info('entry successfully deleted from db');
-                var index = self.entry_arr.indexOf(entry);
+            data: data,
+            dataType: 'json',
+        }).success( function(response){
+            console.log("DEL Response", response);
+            if(response.success){
+                $log.log("success!!");
+                $log.info(response.msg);
+                var index = self.entry_arr.indexOf(response.id);
                 self.entry_arr.splice(index, 1);
             }
             else{
-                $log.error('Error deleting entry from database. response is: ', response);
+                $log.log("Not success");
+                $log.error(response.error, response);
             }
         }).error(function(){
             $log.error('Error deleting entry from database');
