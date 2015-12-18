@@ -5,7 +5,7 @@ header('Access-Control-Allow-Methods: GET, POST');
     //comment out
     //print_r($conn);
     mysqli_query($conn,"SET NAMES 'utf8'");
-    $query = "SELECT blog.title, blog.blog_post, blog.summary, blog.id, blog.tags, blog.public,
+    $query = "SELECT blog.title, blog.blog, blog.summary, blog.id, blog.image, blog.public,
     blog.published, blog.edited, blog.timestamp, users.username FROM blog JOIN users ON blog.user_id = users.id";
     //comment out
     //print_r($query);
@@ -24,7 +24,6 @@ header('Access-Control-Allow-Methods: GET, POST');
 $result = [
     'success'=>true, 'data'=>$output
 ];
-
-print(json_encode($result));
+$result = json_encode($result);
+print_r($result);
 ?>
-<!--SELECT blog.user_id, blog.title, blog.blog_post, blog.summary, blog.id, blog.tags, blog.public, blog.published, blog.edited, blog.timestamp, users.id, users.username FROM blog JOIN users ON blog.user_id = users.id-->
