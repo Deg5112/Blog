@@ -11,8 +11,19 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
       self.bool = (self.bool) ? !(self.bool) : true;
     };
 
+    self.setCurrentToken = function(){
+        var token = localStorage.getItem('token');
+        loginRegisterService.token = token;
+    };
+
     self.logOut = function(){
-        loginRegisterService.logOutFromDb(loginRegisterService.token);
+        loginRegisterService.logOutFromDb(loginRegisterService.token).then(function(response){
+           if(response.data.success){
+               self.loggedInBool = true;
+           }else{
+               
+           }
+        });
     };
 
     self.loginUser = function(username, password){
