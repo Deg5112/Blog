@@ -31,7 +31,8 @@ if(mysqli_num_rows($userResult)>0){
         if(mysqli_affected_rows($conn)){
             $responseArray = [
                 'success'=>true,
-                'token'=> $token  //alkajsdhfsdakjlhd223487392472
+                'token'=> $token,  //alkajsdhfsdakjlhd223487392472
+                'username'=>$username
             ];
 
             print(json_encode($responseArray));

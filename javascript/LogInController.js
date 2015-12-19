@@ -20,6 +20,7 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
             loginRegisterService.compareTokens(token).then(function(response){
                if(response.data.success){
                    console.log('true', response);
+                   loginRegisterService.token = token;
                    //this means the tokens match and we are still logged in
                    self.username = response.data.username;
                    self.loggedInBool = true;
@@ -56,6 +57,7 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
                 loginRegisterService.token = response.data.token; //update the current token of the service on response.success
                 console.log('login token ' + ' ' + loginRegisterService.token);
                 self.loggedInBool = true;
+                self.username = response.data.username;
                     //update the current token in local storage
                 localStorage.setItem("token", response.data.token);
                 console.log("token ", response.data.token);
