@@ -2,6 +2,7 @@
 
 blog.controller('loginController', function($http, $log, loginRegisterService){
     var self = this;
+    self.username = 'hello';
     self.bool = true;
     self.badusername = false;
     self.login = {};
@@ -11,10 +12,27 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
       self.bool = (self.bool) ? !(self.bool) : true;
     };
 
-    self.setCurrentToken = function(){
-        var token = localStorage.getItem('token');
-        loginRegisterService.token = token;
+    self.checkIfLoggedIn = function(){
+        //update current token on page load
+        var token = localStorage.getItem("token");
+        console.log(' token ' + ' ' + token);
+        if(token){
+            loginRegisterService.compareTokens(token).then(function(response){
+               if(response.data.success){
+                   console.log('true', response);
+                   //this means the tokens match and we are still logged in
+                   self.username = response.data.username;
+                   self.loggedInBool = true;
+                   //we need to grab the name of the id and stick it up there as well
+               }else{
+                   console.log('false', response);
+                   //either tokens did not match, or the token was deleted on the server but not the client
+               }
+            });
+        }
     };
+
+    self.checkIfLoggedIn();
 
     self.logOut = function(){
         loginRegisterService.logOutFromDb(loginRegisterService.token).then(function(response){
@@ -22,6 +40,7 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
                console.log(response);
                self.loggedInBool = false;
                console.log('logged in bool ' + self.loggedInBool);
+               localStorage.removeItem('token');
            }else{
                console.log(response);
            }
