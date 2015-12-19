@@ -3,10 +3,6 @@ require('connect.php');
 $token = $_POST['token'];
 print_r($_POST);
 
-
-
-
-
 print(json_encode($responseArray));
 
 $logOutQuery = "DELETE FROM `auth_token` WHERE auth_token = $token";
