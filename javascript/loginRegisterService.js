@@ -2,6 +2,28 @@ blog.service('loginRegisterService', function($http, $log){
     var me = this;
     me.token = null;
 
+    me.updateCurrentToken = function(){
+        //update current token on page load
+        var token = localStorage.getItem("token");
+        console.log(' token ' + ' ' + token);
+    };
+
+    me.updateCurrentToken();
+
+
+    me.logOutFromDb = function(token){
+        return $http({
+            data: "token="+token,
+            url: 'http://localhost:8888/lfz/Blog/php/logout.php',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            method: 'POST'
+        }).success(function (response) {
+           console.log(response);
+        }).error(function (response) {
+            $log.error('Error loading data', response);
+        });
+    };
+
     me.loginToDb = function(username, password) {
         return $http({
             data: 'username=' + username + '&password=' + password,
@@ -14,6 +36,8 @@ blog.service('loginRegisterService', function($http, $log){
             $log.error('Error loading data', response);
         });
     };
+
+
     
     me.registerToDb = function(user, email, pw, confirmPw){
         return $http({
