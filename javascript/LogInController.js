@@ -19,9 +19,10 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
     self.logOut = function(){
         loginRegisterService.logOutFromDb(loginRegisterService.token).then(function(response){
            if(response.data.success){
+               console.log(response);
                self.loggedInBool = true;
            }else{
-               
+               console.log(response);
            }
         });
     };
@@ -32,10 +33,10 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
             // if a token property exists in response, place in browser
             // if there is not a token, is there a response.data.data
             if(response.data.token) {
-                loginRegisterService.token = response.data.token;
+                loginRegisterService.token = response.data.token; //update the current token of the service on response.success
                 console.log('login token ' + ' ' + loginRegisterService.token);
                 self.loggedInBool = true;
-
+                    //update the current token in local storage
                 localStorage.setItem("token", response.data.token);
                 console.log("token ", response.data.token);
                 self.badusername = false;

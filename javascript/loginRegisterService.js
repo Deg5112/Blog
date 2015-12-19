@@ -2,9 +2,18 @@ blog.service('loginRegisterService', function($http, $log){
     var me = this;
     me.token = null;
 
+    me.updateCurrentToken = function(){
+        //update current token on page load
+        var token = localStorage.getItem("token");
+        console.log(' token ' + ' ' + token);
+    };
+
+    me.updateCurrentToken();
+
+
     me.logOutFromDb = function(token){
         return $http({
-            data: "token=hello",
+            data: "token="+token,
             url: 'http://localhost:8888/lfz/Blog/php/logout.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST'
