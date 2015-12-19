@@ -8,10 +8,15 @@ blog.config(function($routeProvider){
         .when('/home', {
             templateUrl: 'main_page.html'
         })
-        .when('/post',{
+        .when('/post', {
             templateUrl: 'post_template.html',
             controller: 'postController',
             controllerAs: 'pc'
+        })
+        .when('/about', {
+            templateUrl: 'about.html',
+            controller: 'aboutController',
+            controllerAs: 'ac'
         })
         .when('/contact', {
             templateUrl: 'contact.html'

@@ -1,28 +1,28 @@
 blog.service('blogLog', function($http, $log, $q){
     var self = this;
     self.entry_arr = [
-        {
-            "id": 897,
-            "uid": 755,
-            "ts": 1450208405,
-            "title": "The title of your blog",
-            "summary": "This is the short form of the entry. It could be all new or a truncated version of the full text",
-            "tags": ["blog", "cats", "fun"],
-            "public": true,
-            "published": "2015-12-15 19:40:05",
-            "edited": "2015-12-08 19:40:05"
-        },
-        {
-            "id": 897,
-            "uid": 755,
-            "ts": 1450208405,
-            "title": "Dummy Data",
-            "summary": "Cool Summary",
-            "tags": ["blog", "cats", "fun"],
-            "public": true,
-            "published": "2015-12-15 19:40:05",
-            "edited": "2015-12-08 19:40:05"
-        }
+        //{
+        //    "id": 897,
+        //    "uid": 755,
+        //    "ts": 1450208405,
+        //    "title": "The title of your blog",
+        //    "summary": "This is the short form of the entry. It could be all new or a truncated version of the full text",
+        //    "tags": ["blog", "cats", "fun"],
+        //    "public": true,
+        //    "published": "2015-12-15 19:40:05",
+        //    "edited": "2015-12-08 19:40:05"
+        //},
+        //{
+        //    "id": 897,
+        //    "uid": 755,
+        //    "ts": 1450208405,
+        //    "title": "Dummy Data",
+        //    "summary": "Cool Summary",
+        //    "tags": ["blog", "cats", "fun"],
+        //    "public": true,
+        //    "published": "2015-12-15 19:40:05",
+        //    "edited": "2015-12-08 19:40:05"
+        //}
     ];
     self.data_loaded = false;
     self.entry_display = {};
@@ -32,7 +32,11 @@ blog.service('blogLog', function($http, $log, $q){
     }
 
     self.get_clicked_post = function(){
-        return self.entry_display;
+        if(angular.equals(self.entry_display, {})){
+            return false;
+        }else{
+            return self.entry_display;
+        }
     }
 
     self.load_data = function(){
@@ -41,12 +45,15 @@ blog.service('blogLog', function($http, $log, $q){
 
         if(!self.data_loaded) {
             $http({
-                url: 'http://s-apis.learningfuze.com/blog/list.json',
+                url: 'http://localhost:8888/lfz/Blog/php/listBlogPost.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
                 $log.info('load data successful: ', response);
-                self.entry_arr.push(response.data);
+                for(var index in response['data']){
+                    self.entry_arr.push(response['data'][index]);
+                }
+                $log.info('self.entry_arr after data push is: ', self.entry_arr);
                 self.data_loaded = true;
                 d.resolve(self.entry_arr);
             }).error(function () {
@@ -64,8 +71,8 @@ blog.service('blogLog', function($http, $log, $q){
         var data = $.param({
             'title': entry.title,
             'blog': entry.blog,
-            'tags': entry.tags,
-            'user': entry.user
+            //'tags': entry.tags,
+            'username': entry.username
         });
 
         return $http({
@@ -75,12 +82,13 @@ blog.service('blogLog', function($http, $log, $q){
             data: data
         }).success(function(response){
             console.log(response);
-            return;
             if(response['success']){
                 $log.info('success');
+                //$log.error('response.data is: ', response.data);
                 entry.id = response.data.id;
-                console.log('entry in success is: ', entry);
-                console.log('entry_arr is: ', self.entry_arr);
+                console.log(entry.id);
+                //console.log('entry in success is: ', entry);
+                //console.log('entry_arr is: ', self.entry_arr);
                 self.entry_arr.push(entry);
             }else{
                 $log.error('Error adding entry to database. response is: ', response);
@@ -94,23 +102,27 @@ blog.service('blogLog', function($http, $log, $q){
         $log.info('delete entry called');
 
         var data = $.param({
-            id : entry.id,
-            'public': false
+            'id' : entry.id
+            //'public': false
         });
 
         return $http({
-            url: 'http://s-apis.learningfuze.com/blog/delete.json',
+            url: 'http://localhost:8888/lfz/Blog/php/deleteBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
-            data: data
-        }).success(function(response){
-            if(response['success']){
-                $log.info('entry successfully deleted from db');
-                var index = self.entry_arr.indexOf(entry);
+            data: data,
+            dataType: 'json',
+        }).success( function(response){
+            console.log("DEL Response", response);
+            if(response.success){
+                $log.log("success!!");
+                $log.info(response.msg);
+                var index = self.entry_arr.indexOf(response.id);
                 self.entry_arr.splice(index, 1);
             }
             else{
-                $log.error('Error deleting entry from database. response is: ', response);
+                $log.log("Not success");
+                $log.error(response.error, response);
             }
         }).error(function(){
             $log.error('Error deleting entry from database');
@@ -127,16 +139,16 @@ blog.service('blogLog', function($http, $log, $q){
             auth_token: old_entry.auth_token,
             title : new_entry.title,
             blog: new_entry.blog,
-            tags: old_entry.tags,
             'public': true
         });
 
         return $http({
-            url: 'http://s-apis.learningfuze.com/blog/update.json',
+            url: 'http://localhost:8888/lfz/Blog/php/updateBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
         }).success(function(response){
+            console.log(response);
             if(response['success']){
                 $log.info('entry successfully updated in db');
                 var entry_index = self.entry_arr.indexOf(old_entry);
@@ -156,6 +168,16 @@ blog.service('blogLog', function($http, $log, $q){
     self.relay_link_data = function(entry){
         console.log('relay_link_data called in blogLog');
         self.entry_display = entry;
+    }
+
+    self.find_user_specific_data = function(user){
+        var output_arr = [];
+        for(var index in self.entry_arr){
+            if(self.entry_arr[index].uid == user){
+                output_arr.push(self.entry_arr[index]);
+            }
+        }
+        return output_arr;
     }
 })
 
