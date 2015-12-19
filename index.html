@@ -37,14 +37,18 @@
     <script src="javascript/main.js"></script>
     <script src="javascript/router.js"></script>
     <script src="javascript/blogLog.js"></script>
+    <script src="javascript/loginRegisterService.js"></script>
     <script src="javascript/formController.js"></script>
     <script src="javascript/tableControllers.js"></script>
     <script src="javascript/postController.js"></script>
     <script src="javascript/LogInController.js"></script>
-    <script src="javascript/sessionService.js"></script>
     <script src="javascript/navController.js"></script>
+
     <script src="javascript/loginRegisterService.js"></script>
     <script src="logout.js"></script>
+
+    <script src="javascript/aboutController.js"></script>
+
     <style>
         #custom-search-input {
             margin: 0;
@@ -181,6 +185,9 @@
                 </li>
                 <li>
                     <a href="#contact">Contact</a>
+                </li>
+                <li>
+                    <a href="#about">Profile</a>
                 </li>
                 <!-- dropdown login-->
                 <li ng-show="lC.loggedInBool"><a ng-click="lC.logOut()">LogOut</a></li>
