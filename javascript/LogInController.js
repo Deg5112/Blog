@@ -20,7 +20,8 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
         loginRegisterService.logOutFromDb(loginRegisterService.token).then(function(response){
            if(response.data.success){
                console.log(response);
-               self.loggedInBool = true;
+               self.loggedInBool = false;
+               console.log('logged in bool ' + self.loggedInBool);
            }else{
                console.log(response);
            }
