@@ -1,5 +1,7 @@
 blog.service('loginRegisterService', function($http, $log){
     var me = this;
+    me.token = null;
+
     me.loginToDb = function(username, password) {
         return $http({
             data: 'username=' + username + '&password=' + password,
@@ -12,6 +14,7 @@ blog.service('loginRegisterService', function($http, $log){
             $log.error('Error loading data', response);
         });
     };
+    
     me.registerToDb = function(user, email, pw, confirmPw){
         return $http({
                 data: 'user=' + user + '&email=' + email + '&pw=' + pw + '&confirmPw=' + confirmPw,
@@ -24,4 +27,5 @@ blog.service('loginRegisterService', function($http, $log){
                     $log.error('Error loading data', response);
                 });
     };
+
 });
