@@ -134,7 +134,7 @@
             display: none;
             float: left;
             min-width: 320px;
-            padding: 5% 20%;
+            padding: 15% 20%;
             font-size: 14px;
             text-align: left;
             list-style: none;
@@ -143,7 +143,7 @@
             background-clip: padding-box;
             border: 1px solid #ccc;
             border: 1px solid rgba(0,0,0,.15);
-            border-radius: 4px;
+            border-radius: 0 0 5px 5px;
             -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
         }
@@ -154,6 +154,10 @@
         }
         .hover_div:hover{
             color: #269abc;
+        }
+
+        ul.dropdown-menu {
+            border-radius: 0 0 5px 5px;
         }
 
     </style>
@@ -205,9 +209,10 @@
 
                             <button type='button' class="pull-right btn-small btn-info btn-small" ng-click="lC.changeBool()">Or Register</button><h4>Login</h4>
 
+                            <span id="usernameLog" ng-show="lC.badusername">{{ lC.datamessage }}</span>
+
                             <div class="form-group input-group">
                                 <span class="input-group-addon"> </span>
-                                <span id="usernameLog" ng-show="lC.badusername">{{ lC.datamessage }}</span>
                                 <input  type="text" class="form-control" placeholder="User Name" ng-model="lC.login.userLog">
                             </div>
 
@@ -215,8 +220,8 @@
                                 <input type="text" class="form-control" placeholder="password" ng-model="lC.login.password">
                             </div>
                             <button class="btn btn-success" type="submit" ng-click="lC.loginUser(lC.login.userLog, lC.login.password)" >Add</button>
-                            <button type="button" class="btn btn-danger">Reset</button>
-                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="button" class="btn btn-danger">Clear</button>
+
 
 
                         </li>
@@ -228,27 +233,30 @@
 
                             <button type='button' class="pull-right btn-small btn-info btn-small" ng-click="lC.changeBool()">back to Login</button><h4>Register</h4>
 
+                            <span>{{ lC.registerusernameMessage }}</span>
                             <div class="form-group input-group">
                                 <span class="input-group-addon"> </span>
                                 <input type="text" class="form-control" placeholder="User Name" ng-model="lC.register.userReg">
                             </div>
 
+                            <span>{{ lC.registeremailMessage }}</span>
                             <div class="form-group input-group"><span class="input-group-addon"></span>
                                 <input type="email" class="form-control"  placeholder="email" ng-model="lC.register.emailReg">
                             </div>
 
+                            <span>{{ lC.registerpasswordMessage }}</span>
                             <div class="form-group input-group"><span class="input-group-addon"></span>
                                 <input type="text" class="form-control"  placeholder="password" ng-model="lC.register.passwordReg">
                             </div>
 
                             <div class="form-group input-group"><span class="input-group-addon"></span>
-                                <input type="text" class="form-control"  placeholder="confirm password" ng-model="lC.register.comfirmPasswordReg">
+                                <input type="text" class="form-control"  placeholder="confirm password" ng-model="lC.register.confirmPasswordReg">
                             </div>
 
 
                             <button class="btn btn-success" type="submit" ng-click="lC.registerUser(lC.register.userReg, lC.register.emailReg, lC.register.passwordReg, lC.register.confirmPasswordReg)">Add</button>
-                            <button type="button" class="btn btn-danger">Reset</button>
-                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="button" class="btn btn-danger">Clear</button>
+                            <br><span>{{ lC.registrationSuccessMessage}}</span>
 
 
                         </li>

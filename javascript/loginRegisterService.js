@@ -48,7 +48,7 @@ blog.service('loginRegisterService', function($http, $log){
     me.registerToDb = function(user, email, pw, confirmPw){
         return $http({
                 data: 'user=' + user + '&email=' + email + '&pw=' + pw + '&confirmPw=' + confirmPw,
-                url: 'http://s-apis.learningfuze.com/blog/list.json',
+                url: 'http://localhost:8888/lfz/Blog/php/register.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function(response){

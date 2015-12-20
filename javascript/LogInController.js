@@ -2,14 +2,62 @@
 
 blog.controller('loginController', function($http, $log, loginRegisterService){
     var self = this;
-    self.username = 'hello';
+    self.username = null;
     self.bool = true;
     self.badusername = false;
     self.login = {};
     self.register = {};
     self.loggedInBool = false;
+    self.registerusernameMessage = null;
+    self.registeremailMessage = null;
+    self.registerpasswordMessage = null;
+    self.registrationSuccessMessage = null;
+
+
+    self.registerUser = function(user, email, pw, confirmPw){
+        console.log(user, email, pw, confirmPw);
+        //form validation
+        registerForm = {
+            username: user,
+            email: email,
+            password: pw,
+            confirmPassword: confirmPw
+        };
+        var bool = true;
+
+        for(var i in registerForm){
+            var property = 'register' + i + 'Message';
+            if(typeof registerForm[i] == 'undefined' || registerForm[i] == ''){
+                bool = false;
+                console.log('property ' + property);
+                self[property] = 'Please enter a valid ' + i;
+            }else{
+                self[property] = null;
+            }
+        }
+
+        if(bool){
+            //if none of the field are empty, check that the passwords match, also need to check passwords match on the backend
+            if(registerForm.password === registerForm.confirmPassword){
+                console.log('passwords match');
+                //clear the error messages
+                self.registerusernameMessage = null;
+                self.registeremailMessage = null;
+                self.registerpasswordMessage = null;
+
+                self.register = {};
+                loginRegisterService.registerToDb(user, email, pw, confirmPw).then(function(response){
+                    if(response.data.success){
+                        self.registrationSuccessMessage = 'Registration Successful! Return to Login tab to sign in';
+                    }
+                });
+            }
+        }
+
+    };
+
     self.changeBool = function(){
-      self.bool = (self.bool) ? !(self.bool) : true;
+        self.bool = (self.bool) ? !(self.bool) : true;
     };
 
     self.checkIfLoggedIn = function(){
@@ -74,12 +122,6 @@ blog.controller('loginController', function($http, $log, loginRegisterService){
     };
 
 
-    self.registerUser = function(user, email, pw, confirmPw){
-        //console.log(self.register);
-        self.register = {};
-        loginRegisterService.registerToDb(user, email, pw, confirmPw).then(function(response){
-            console.log(response);
-        });
-    };
+
 
 });
