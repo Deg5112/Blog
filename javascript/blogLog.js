@@ -45,7 +45,7 @@ blog.service('blogLog', function($http, $log, $q){
 
         if(!self.data_loaded) {
             $http({
-                url: 'http://localhost:8888/lfz/Blog/php/listBlogPost.php',
+                url: 'http://52.35.28.205/Blog/php/listBlogPost.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
