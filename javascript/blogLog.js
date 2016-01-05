@@ -45,7 +45,7 @@ blog.service('blogLog', function($http, $log, $q){
 
         if(!self.data_loaded) {
             $http({
-                url: 'http://52.35.28.205/Blog/php/listBlogPost.php',
+                url: '../php/listBlogPost.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
@@ -76,7 +76,7 @@ blog.service('blogLog', function($http, $log, $q){
         });
 
         return $http({
-            url: 'http://localhost:8888/lfz/Blog/php/createBlogPost.php',
+            url: 'http://52.35.28.205/Blog/php/createBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
@@ -110,7 +110,7 @@ blog.service('blogLog', function($http, $log, $q){
         });
 
         return $http({
-            url: 'http://localhost:8888/lfz/Blog/php/deleteBlogPost.php',
+            url: 'http://52.35.28.205/lfz/Blog/php/deleteBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data,
@@ -146,7 +146,7 @@ blog.service('blogLog', function($http, $log, $q){
         });
 
         return $http({
-            url: 'http://localhost:8888/lfz/Blog/php/updateBlogPost.php',
+            url: 'http://52.35.28.205/Blog/php/updateBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
