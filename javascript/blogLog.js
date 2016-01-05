@@ -45,7 +45,7 @@ blog.service('blogLog', function($http, $log, $q){
 
         if(!self.data_loaded) {
             $http({
-                url: 'Blog/php/listBlogPost.php',
+                url: 'php/listBlogPost.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function (response) {
