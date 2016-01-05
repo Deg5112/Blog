@@ -1,4 +1,6 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
 //select from user table where username = username..
 //if there's no username return a response doesn't exist
 //if it does exist.. check if the password matches..if password doesn't match return username or password is invalid
