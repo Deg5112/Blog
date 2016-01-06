@@ -5,7 +5,7 @@ blog.service('loginRegisterService', function($http, $log){
     me.compareTokens = function (token){
         return $http({
             data: "token="+token,
-            url: 'http://localhost:8888/lfz/Blog/php/compareTokens.php',
+            url: 'php/compareTokens.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST'
         }).success(function (response) {
@@ -20,7 +20,7 @@ blog.service('loginRegisterService', function($http, $log){
     me.logOutFromDb = function(token){
         return $http({
             data: "token="+token,
-            url: 'http://localhost:8888/lfz/Blog/php/logout.php',
+            url: 'php/logout.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST'
         }).success(function (response) {
@@ -33,7 +33,7 @@ blog.service('loginRegisterService', function($http, $log){
     me.loginToDb = function(username, password) {
         return $http({
             data: 'username=' + username + '&password=' + password,
-            url: 'http://localhost:8888/lfz/Blog/php/login.php',
+            url: 'php/login.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST'
         }).success(function (response) {
@@ -48,7 +48,7 @@ blog.service('loginRegisterService', function($http, $log){
     me.registerToDb = function(user, email, pw, confirmPw){
         return $http({
                 data: 'user=' + user + '&email=' + email + '&pw=' + pw + '&confirmPw=' + confirmPw,
-                url: 'http://localhost:8888/lfz/Blog/php/register.php',
+                url: 'php/register.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 method: 'POST'
             }).success(function(response){

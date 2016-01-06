@@ -76,7 +76,7 @@ blog.service('blogLog', function($http, $log, $q){
         });
 
         return $http({
-            url: 'http://52.35.28.205/Blog/php/createBlogPost.php',
+            url: 'php/createBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data
@@ -110,7 +110,7 @@ blog.service('blogLog', function($http, $log, $q){
         });
 
         return $http({
-            url: 'http://52.35.28.205/lfz/Blog/php/deleteBlogPost.php',
+            url: 'php/deleteBlogPost.php',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             method: 'POST',
             data: data,

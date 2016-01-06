@@ -1,4 +1,7 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+
 require('connect.php');
 $curToken = $_POST['token']; //token from client
 
