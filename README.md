@@ -1,1 +1,5 @@
-# Blog
+What initially started out as a group project, the Blog was a a project where I participated not only participated in developing the front as well as the backend of the blog, but acted as scrum master. As scrum master, I assisted with planning out the scope of the project, helped the team prioritize all features that we'd be able to complete by the deadline, and worked with waffle.io web based task management system that integrates with github to assign out and track the teams progress during this project. 
+
+I helped code out the backend in PHP, built out the database in mySQL, and wrote the scripts that fetched data from SQL and passed it back to the front end. I also built out a log-in system, in which when a user is logged in, I wrote javascript code on stores an authentication token in that clients local storage, so anytime they refresh the page, they don't have to log back in. The cool part about the project was learning about how users would ideally navigate a blog, and developing a platform that would enable a user friendly, unique experience. 
+
+This was another great learning opportunity to use AngularJS for routing, services, and controllers. 
