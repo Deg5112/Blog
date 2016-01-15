@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('52.35.28.205', 'nicole', 'nichole', 'lfz_blog');
+$conn = mysqli_connect('davidgoodman.club', 'nicole', 'nichole', 'lfz_blog');
 //so this is fine.. the problem is the ajax urls to the php files.. ?
 
 
